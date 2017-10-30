@@ -49,20 +49,20 @@ namespace TwilioApi
                 response = await GetResponseContentAsync(client, request) as RestResponse;
             }).Wait();
             //4
-            Console.WriteLine(response.Content);
-            Console.ReadLine();
-            //JObject jsonResponse = JsonConvert.DeserializeObject<JObject>(response.Content);
-
-            //var messageList = JsonConvert.DeserializeObject<List<Message>>(jsonResponse["messages"].ToString());
-            //foreach (var message in messageList)
-            //{
-            //    Console.WriteLine("To: {0}", message.To);
-            //    Console.WriteLine("From: {0}", message.From);
-            //    Console.WriteLine("Body: {0}", message.Body);
-            //    Console.WriteLine("Status: {0}", message.Status);
-            //    Console.WriteLine("======================================================");
-            //}
+            //Console.WriteLine(response.Content);
             //Console.ReadLine();
+            JObject jsonResponse = JsonConvert.DeserializeObject<JObject>(response.Content);
+
+            var messageList = JsonConvert.DeserializeObject<List<Message>>(jsonResponse["messages"].ToString());
+            foreach (var message in messageList)
+            {
+                Console.WriteLine("To: {0}", message.To);
+                Console.WriteLine("From: {0}", message.From);
+                Console.WriteLine("Body: {0}", message.Body);
+                Console.WriteLine("Status: {0}", message.Status);
+                Console.WriteLine("======================================================");
+            }
+            Console.ReadLine();
 
         }
         public static Task<IRestResponse> GetResponseContentAsync(RestClient theClient, RestRequest theRequest)
